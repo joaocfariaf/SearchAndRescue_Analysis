@@ -2,6 +2,7 @@ import os
 import shutil
 import random
 import sys
+import numpy as np
 
 data_set = str(sys.argv[1])
 split = [float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4])]
@@ -43,3 +44,29 @@ for i in range(3):
         shutil.copy(os.path.join(positive_patches, file), positive[i])
     for file in neg[i]:
         shutil.copy(os.path.join(negative_patches, file), negative[i])
+
+#######################################################################################################################################3
+
+test_folders = [os.path.join(data, "test0.5"), os.path.join(data, "test1.0"), os.path.join(data, "test1.5"), os.path.join(data, "test2.0")]
+positive_test = []
+negative_test = []
+for folder in test_folders:
+    positive_test.append(os.path.join(folder, "positive"))
+    negative_test.append(os.path.join(folder, "negative"))
+
+dir_list_test = [*test_folders, *positive_test]
+for directory in dir_list_test:
+    os.mkdir(directory)
+
+positive_test_patches = os.path.join(test_dir, "positive")
+negative_test_patches = os.path.join(test_dir, "negative")
+n_test_neg = len(os.listdir(negative_test_patches))
+
+pos_test_list = os.listdir(positive_test_patches)
+pos_test = [random.sample(pos_test_list, k=int(round(n_test_neg/np.sqrt(10), 0))), random.sample(pos_test_list, k=int(round(n_test_neg/10, 0))), 
+            random.sample(pos_test_list, k=int(round(n_test_neg/np.sqrt(100), 0))), random.sample(pos_test_list, k=int(round(n_test_neg/100, 0)))]
+
+for i in range(4):
+    for file in pos_test[i]:
+        shutil.copy(os.path.join(positive_test_patches, file), positive_test[i])  
+    shutil.copytree(negative_test_patches, negative_test[i])

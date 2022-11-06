@@ -191,82 +191,36 @@ def train_validate_test(data_set, network_model, batch_size, n_epochs, optimizer
         plt.savefig(os.path.join(output, 'pr_' + model_name + '.png'))
         plt.close
 
-        f_beta_list = []
-        threshold_array = np.arange(0, 200, 1) / 200
+        
 
-        beta2 =  1
-        f_beta = (beta2 + 1)*precision*recall/(beta2*precision + recall)
-        xmax = threshold_array[np.argmax(f_beta)]
-        ymax = f_beta.max()
-        f_beta_list.append(ymax)
-        plt.figure()
-        plt.plot([xmax, xmax], [0.94, 1], 'k--', label="$x_{opt} =$ " + str(xmax))
-        plt.plot([1/200, 1], [ymax, ymax], 'k--', label="$F_\u03B2 max =$ " + "{:.2f}".format(ymax*100) + "%")
-        plt.plot(threshold_array[1:], f_beta[1:])
-        plt.xlabel('Threshold')
-        plt.ylabel('$F_\u03B2$')
-        plt.title('$\u03B2 ^{2} = $' + '(1)')
-        plt.legend(loc='lower left')
-        plt.savefig('beta2_(1)' + '_' + '.png')
-        plt.savefig(os.path.join(output, 'beta2_(1)' + '_' + model_name + '.png'))
-        plt.close
+        # Extra tests with different positive proportions
+        extra_test_directories = [os.path.join(data, "test0.5"), os.path.join(data, "test1.0"), 
+                                  os.path.join(data, "test1.5"), os.path.join(data, "test2.0")]
+        for i in range(len(extra_test_directories)):                   
+                test_generator = test_datagen.flow_from_directory(
+                        extra_test_directories[i],  # this is the target directory
+                        target_size=(81, 81),  # all images will be resized to 81x81
+                        batch_size=batch_size,
+                        class_mode='binary')  # since we use binary_crossentropy loss, we need binary labels
 
-        for i in range(2, 10):
-                beta2 =  1 / i
-                f_beta = (beta2 + 1)*precision*recall/(beta2*precision + recall)
-                xmax = threshold_array[np.argmax(f_beta)]
-                ymax = f_beta.max()
-                f_beta_list.append(ymax)
-                plt.figure()
-                plt.plot([xmax, xmax], [0.94, 1], 'k--', label="$x_{opt} =$ " + str(xmax))
-                plt.plot([1/200, 1], [ymax, ymax], 'k--', label="$F_\u03B2 max =$ " + "{:.2f}".format(ymax*100) + "%")
-                plt.plot(threshold_array[1:], f_beta[1:])
-                plt.xlabel('Threshold')
-                plt.ylabel('$F_\u03B2$')
-                plt.title('$\u03B2 ^{2} = $' + '(1/' + str(i) + ')')
-                plt.legend(loc='lower left')
-                plt.savefig('beta2_(1div' + str(i) + ')' + '_' + '.png')
-                plt.savefig(os.path.join(output, 'beta2_(1div' + str(i) + ')' + '_' + model_name + '.png'))
-                plt.close                
+                # make predictions on the testing images, finding the index of the
+                # label with the corresponding largest predicted probability
 
-        for i in range(1, 6):
-                beta2 =  10 ** (-i)
-                f_beta = (beta2 + 1)*precision*recall/(beta2*precision + recall)
-                xmax = threshold_array[np.argmax(f_beta)]
-                ymax = f_beta.max()
-                f_beta_list.append(ymax)
-                plt.figure()
-                plt.plot([xmax, xmax], [0.94, 1], 'k--', label="$x_{opt} =$ " + str(xmax))
-                plt.plot([1/200, 1], [ymax, ymax], 'k--', label="$F_\u03B2 max =$ " + "{:.2f}".format(ymax*100) + "%")
-                plt.plot(threshold_array[1:], f_beta[1:])
-                plt.xlabel('Threshold')
-                plt.ylabel('$F_\u03B2$')                
-                plt.title('$\u03B2 ^{2} = 1e-$' + str(i)) 
-                plt.savefig(os.path.join(output, 'beta2_(1e-' + str(i) + ')_' + model_name + '.png'))
-                plt.close
+                NUM_EXTRA_TEST_IMAGES = len(os.listdir(os.path.join(extra_test_directories[i],'positive'))) + \
+                                        len(os.listdir(os.path.join(extra_test_directories[i],'negative')))
 
-        f_beta_file = os.path.join(output, "f_beta"+model_name+".txt")
-        file = open(f_beta_file, "w")
-        file.write(str(f_beta_list))
-        file.close()
+                predIdxs = model.evaluate(test_generator, steps=(NUM_EXTRA_TEST_IMAGES // batch_size) + 1)
 
-        beta_array = np.array([1, 1/2, 1/3, 1/4, 1/5, 1/6, 1/7, 1/8, 1/9, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6])
-        plt.figure()
-        plt.plot(beta_array, np.asarray(f_beta_list))
-        plt.xlabel('$\u03B2 ^{2}$')
-        plt.ylabel('$F_\u03B2$')                
-        plt.savefig(os.path.join(output, 'beta2_f_beta_' + model_name + '.png'))
-        plt.close
+                pred_file = os.path.join(output, "test"+str((i+1)/2)+"_pred"+model_name+".txt")
+                file = open(pred_file, "w")
+                file.write(str(predIdxs))
+                file.close()
 
 
-
-
-
-train_validate_test('heridal', 'chollet', 256, 5, 'SGD')
-# train_validate_test('heridal', 'chollet', 32, 5, 'rmsprop')
-# train_validate_test('heridal', 'chollet', 64, 5, 'rmsprop')
-# train_validate_test('heridal', 'chollet', 128, 5, 'rmsprop')
-# train_validate_test('heridal', 'chollet', 256, 50, 'rmsprop')
+train_validate_test('heridal', 'chollet', 32, 2, 'rmsprop')
+# train_validate_test('heridal', 'chollet', 64, 100, 'rmsprop')
+# train_validate_test('heridal', 'chollet', 128, 100, 'rmsprop')
+# train_validate_test('heridal', 'chollet', 256, 100, 'rmsprop')
 
 # train_validate_test('heridal', 'vasic_papic', 64, 10, 'rmsprop')
 # train_validate_test('heridal', 'vasic_papic', 128, 10, 'rmsprop')
