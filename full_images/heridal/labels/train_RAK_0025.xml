@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotation>
+   <folder>SAR</folder>
+   <filename>RAK_0025</filename>
+   <source>
+      <database>HERIDAL database</database>
+   </source>
+   <size>
+      <width>4000</width>
+      <height>3000</height>
+      <depth>3</depth>
+   </size>
+   <object>
+      <name>human</name>
+      <pose>unspecified</pose>
+      <truncated>0</truncated>
+      <difficult>0</difficult>
+      <bndbox>
+         <xmin>748</xmin>
+         <xmax>813</xmax>
+         <ymin>2307</ymin>
+         <ymax>2372</ymax>
+      </bndbox>
+   </object>
+</annotation>

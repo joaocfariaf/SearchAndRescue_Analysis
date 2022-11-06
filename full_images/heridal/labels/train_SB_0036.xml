@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotation>
+   <object>
+      <name>human</name>
+      <pose>unspecified</pose>
+      <truncated>0</truncated>
+      <difficult>0</difficult>
+      <bndbox>
+         <xmin>1742</xmin>
+         <xmax>1798</xmax>
+         <ymin>1783</ymin>
+         <ymax>1822</ymax>
+      </bndbox>
+   </object>
+   <object>
+      <name>human</name>
+      <pose>unspecified</pose>
+      <truncated>0</truncated>
+      <difficult>0</difficult>
+      <bndbox>
+         <xmin>2296</xmin>
+         <xmax>2333</xmax>
+         <ymin>1571</ymin>
+         <ymax>1599</ymax>
+      </bndbox>
+   </object>
+   <folder>SAR</folder>
+   <filename>SB_0036</filename>
+   <source>
+      <database>HERIDAL database</database>
+   </source>
+   <size>
+      <width>4000</width>
+      <height>3000</height>
+      <depth>3</depth>
+   </size>
+   <object>
+      <name>human</name>
+      <pose>unspecified</pose>
+      <truncated>0</truncated>
+      <difficult>0</difficult>
+      <bndbox>
+         <xmin>1961</xmin>
+         <xmax>1989</xmax>
+         <ymin>2391</ymin>
+         <ymax>2433</ymax>
+      </bndbox>
+   </object>
+</annotation>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotation>
+   <object>
+      <name>human</name>
+      <pose>unspecified</pose>
+      <truncated>0</truncated>
+      <difficult>0</difficult>
+      <bndbox>
+         <xmin>76</xmin>
+         <xmax>162</xmax>
+         <ymin>1796</ymin>
+         <ymax>1832</ymax>
+      </bndbox>
+   </object>
+   <folder>SAR</folder>
+   <filename>BRS_0002</filename>
+   <source>
+      <database>HERIDAL database</database>
+   </source>
+   <size>
+      <width>4000</width>
+      <height>3000</height>
+      <depth>3</depth>
+   </size>
+   <object>
+      <name>human</name>
+      <pose>unspecified</pose>
+      <truncated>0</truncated>
+      <difficult>0</difficult>
+      <bndbox>
+         <xmin>70</xmin>
+         <xmax>166</xmax>
+         <ymin>1957</ymin>
+         <ymax>1990</ymax>
+      </bndbox>
+   </object>
+</annotation>

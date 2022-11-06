@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotation>
+   <object>
+      <name>human</name>
+      <pose>unspecified</pose>
+      <truncated>0</truncated>
+      <difficult>0</difficult>
+      <bndbox>
+         <xmin>2543</xmin>
+         <xmax>2591</xmax>
+         <ymin>2451</ymin>
+         <ymax>2498</ymax>
+      </bndbox>
+   </object>
+   <folder>SAR</folder>
+   <filename>GOR_3055</filename>
+   <source>
+      <database>HERIDAL database</database>
+   </source>
+   <size>
+      <width>4000</width>
+      <height>3000</height>
+      <depth>3</depth>
+   </size>
+   <object>
+      <name>human</name>
+      <pose>unspecified</pose>
+      <truncated>0</truncated>
+      <difficult>0</difficult>
+      <bndbox>
+         <xmin>2182</xmin>
+         <xmax>2254</xmax>
+         <ymin>2610</ymin>
+         <ymax>2669</ymax>
+      </bndbox>
+   </object>
+</annotation>

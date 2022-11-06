@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotation>
+   <object>
+      <name>human</name>
+      <pose>unspecified</pose>
+      <truncated>0</truncated>
+      <difficult>0</difficult>
+      <bndbox>
+         <xmin>1223</xmin>
+         <xmax>1260</xmax>
+         <ymin>246</ymin>
+         <ymax>283</ymax>
+      </bndbox>
+   </object>
+   <object>
+      <name>human</name>
+      <pose>unspecified</pose>
+      <truncated>0</truncated>
+      <difficult>0</difficult>
+      <bndbox>
+         <xmin>2593</xmin>
+         <xmax>2635</xmax>
+         <ymin>2584</ymin>
+         <ymax>2653</ymax>
+      </bndbox>
+   </object>
+   <folder>SAR</folder>
+   <filename>TRS_0006</filename>
+   <source>
+      <database>HERIDAL database</database>
+   </source>
+   <size>
+      <width>4000</width>
+      <height>3000</height>
+      <depth>3</depth>
+   </size>
+   <object>
+      <name>human</name>
+      <pose>unspecified</pose>
+      <truncated>0</truncated>
+      <difficult>0</difficult>
+      <bndbox>
+         <xmin>955</xmin>
+         <xmax>999</xmax>
+         <ymin>2174</ymin>
+         <ymax>2222</ymax>
+      </bndbox>
+   </object>
+</annotation>
