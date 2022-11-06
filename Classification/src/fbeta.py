@@ -9,6 +9,34 @@ import time
 # Usar esse comando no terminal para testar o funcionamento:
 # python3 sliding_window.py heridal heridal chollet_b64_e1_rmsprop_0.01
 
+def sliding_window(model, image, threshold = .5, width=81, height=81, pad_x=81, pad_y=81):
+    label = []
+    total_width, total_height = image.size
+    
+    for top in range(0, (total_height - height + pad_y), pad_y):
+        bottom = top + height
+        for left in range(0, (total_width - width + pad_x), pad_x):
+            right = left + width
+
+            im1 = np.asarray([np.asarray(image.crop((left, top, right, bottom)))])/255
+            
+            imgm = image.copy()
+            rect = ImageDraw.Draw(imgm)
+            shape = [(left, top), (right, bottom)]
+
+            prediction = model.predict(im1)
+            if prediction >= threshold:
+                x = (left + width/2) / total_width
+                y = (top + height/2) / total_height
+                r_width = width / total_width
+                r_height = height / total_height
+                
+                label_line = '0 ' + str(x) + ' ' + str(y) + ' ' + str(r_width) + ' ' + str(r_height)
+                label.append(label_line)
+
+
+    return label
+
 # Reads the inputs
 data_set = str(sys.argv[1])
 model_data_set = str(sys.argv[2])
