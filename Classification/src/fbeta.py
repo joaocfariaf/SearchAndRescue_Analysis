@@ -5,6 +5,7 @@ import numpy as np
 from tensorflow import keras
 import sys
 import time
+import math
 from matplotlib import pyplot as plt
 # Usar esse comando no terminal para testar o funcionamento:
 # python3 sliding_window.py heridal heridal chollet_b64_e1_rmsprop_0.01
@@ -23,6 +24,9 @@ def fbeta(beta2, network_model, batch_size, n_epochs, optimizer, data_set='herid
     recall = np.array([float(i) for i in file_list[4].split(',')])
 
     f_beta = (beta2 + 1)*precision*recall/(beta2*precision + recall)
+    for i in f_beta:
+        if math.isnan(i):
+            i = 0
     threshold_array = np.arange(0, f_beta.shape[0], 1) / f_beta.shape[0]
     xmax = threshold_array[np.argmax(f_beta)]
     ymax = f_beta.max()
