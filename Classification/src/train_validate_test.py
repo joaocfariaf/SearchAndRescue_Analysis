@@ -26,9 +26,9 @@ def train_validate_test(data_set, network_model, batch_size, n_epochs, optimizer
         NUM_TEST_IMAGES = len(os.listdir(os.path.join(test_dir, 'negative'))) + len(os.listdir(os.path.join(test_dir, 'positive')))
 
         N_TOTAL = NUM_TRAIN_IMAGES + NUM_VALIDATION_IMAGES + NUM_TEST_IMAGES   
-        train_prop = NUM_TRAIN_IMAGES*10 // N_TOTAL
-        val_prop = NUM_VALIDATION_IMAGES*10 //  N_TOTAL
-        test_prop = NUM_TEST_IMAGES*10 // N_TOTAL
+        train_prop = int(round(NUM_TRAIN_IMAGES*10 / N_TOTAL, 0))
+        val_prop = int(round(NUM_VALIDATION_IMAGES*10 /  N_TOTAL, 0))
+        test_prop = int(round(NUM_TEST_IMAGES*10 / N_TOTAL, 0))
 
         output = os.path.join('..', 'outputs', data_set, 'split_'+str(train_prop)+'_'+str(val_prop)+'_'+str(test_prop))
 
@@ -92,7 +92,7 @@ def train_validate_test(data_set, network_model, batch_size, n_epochs, optimizer
         else:
                 raise TypeError("Not allowed optimizer option.")
 
-        model_name = network_model + '_' + 'b' +  str(batch_size)  + '_' + 'e' + str(n_epochs) + '_' + optimizer  + '_' + str(learning_rate)
+        model_name = network_model + '_' + 'b' +  str(batch_size)  + '_' + 'e' + str(n_epochs) + '_' + optimizer
         output = os.path.join(output, model_name)
         logs = os.path.join(output, 'logs/{}')
         tensorboard = TensorBoard(log_dir=logs.format(time()))
