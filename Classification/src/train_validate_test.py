@@ -191,8 +191,6 @@ def train_validate_test(data_set, network_model, batch_size, n_epochs, optimizer
         plt.savefig(os.path.join(output, 'pr_' + model_name + '.png'))
         plt.close
 
-        
-
         # Extra tests with different positive proportions
         extra_test_directories = [os.path.join(data, "test0.5"), os.path.join(data, "test1.0"), 
                                   os.path.join(data, "test1.5"), os.path.join(data, "test2.0")]
@@ -216,20 +214,22 @@ def train_validate_test(data_set, network_model, batch_size, n_epochs, optimizer
                 file.write(str(predIdxs))
                 file.close()
 
+train_validate_test('heridal', 'chollet', 1, 70, 'rmsprop')
+train_validate_test('heridal', 'chollet', 32, 70, 'rmsprop')
+train_validate_test('heridal', 'chollet', 128, 70, 'rmsprop')
+train_validate_test('heridal', 'chollet', 256, 70, 'rmsprop')
 
-train_validate_test('heridal', 'chollet', 32, 2, 'rmsprop')
-# train_validate_test('heridal', 'chollet', 64, 100, 'rmsprop')
-# train_validate_test('heridal', 'chollet', 128, 100, 'rmsprop')
-# train_validate_test('heridal', 'chollet', 256, 100, 'rmsprop')
+train_validate_test('heridal', 'chollet', 1, 70, 'SGD')
+train_validate_test('heridal', 'chollet', 32, 70, 'SGD')
+train_validate_test('heridal', 'chollet', 128, 70, 'SGD')
+train_validate_test('heridal', 'chollet', 256, 70, 'SGD')
 
-# train_validate_test('heridal', 'vasic_papic', 64, 10, 'rmsprop')
-# train_validate_test('heridal', 'vasic_papic', 128, 10, 'rmsprop')
-# train_validate_test('heridal', 'vasic_papic', 256, 10, 'rmsprop')
+train_validate_test('heridal', 'vasic_papic', 1, 70, 'rmsprop')
+train_validate_test('heridal', 'vasic_papic', 32, 70, 'rmsprop')
+train_validate_test('heridal', 'vasic_papic', 128, 70, 'rmsprop')
+train_validate_test('heridal', 'vasic_papic', 256, 70, 'rmsprop')
 
-# train_validate_test('mix_1', 'chollet', 64, 10, 'rmsprop')
-# train_validate_test('mix_1', 'chollet', 128, 10, 'rmsprop')
-# train_validate_test('mix_1', 'chollet', 256, 10, 'rmsprop')
-
-# train_validate_test('mix_2', 'chollet', 64, 10, 'rmsprop')
-# train_validate_test('mix_2', 'chollet', 128, 10, 'rmsprop')
-# train_validate_test('mix_2', 'chollet', 256, 10, 'rmsprop')
+train_validate_test('heridal', 'vasic_papic', 1, 70, 'SGD')
+train_validate_test('heridal', 'vasic_papic', 32, 70, 'SGD')
+train_validate_test('heridal', 'vasic_papic', 128, 70, 'SGD')
+train_validate_test('heridal', 'vasic_papic', 256, 70, 'SGD')
