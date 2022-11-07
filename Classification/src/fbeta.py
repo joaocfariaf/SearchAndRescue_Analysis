@@ -89,22 +89,18 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
     return
 
 
-fbeta('chollet', 1, 70, 'rmsprop')
-fbeta('chollet', 32, 70, 'rmsprop')
-fbeta('chollet', 128, 70, 'rmsprop')
-fbeta('chollet', 256, 70, 'rmsprop')
+# fbeta('chollet', 32, 70, 'rmsprop')
+# fbeta('chollet', 128, 70, 'rmsprop')
+# fbeta('chollet', 256, 70, 'rmsprop')
 
-fbeta('chollet', 1, 70, 'SGD')
-fbeta('chollet', 32, 70, 'SGD')
-fbeta('chollet', 128, 70, 'SGD')
-fbeta('chollet', 256, 70, 'SGD')
+# fbeta('chollet', 32, 70, 'SGD')
+# fbeta('chollet', 128, 70, 'SGD')
+# fbeta('chollet', 256, 70, 'SGD')
 
-fbeta('vasic_papic', 1, 70, 'rmsprop')
-fbeta('vasic_papic', 32, 70, 'rmsprop')
-fbeta('vasic_papic', 128, 70, 'rmsprop')
+# fbeta('vasic_papic', 32, 70, 'rmsprop')
+# fbeta('vasic_papic', 128, 70, 'rmsprop')
 fbeta('vasic_papic', 256, 70, 'rmsprop')
 
-fbeta('vasic_papic', 1, 70, 'SGD')
 fbeta('vasic_papic', 32, 70, 'SGD')
 fbeta('vasic_papic', 128, 70, 'SGD')
 fbeta('vasic_papic', 256, 70, 'SGD')
