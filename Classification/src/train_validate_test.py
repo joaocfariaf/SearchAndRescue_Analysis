@@ -214,22 +214,19 @@ def train_validate_test(data_set, network_model, batch_size, n_epochs, optimizer
                 file.write(str(predIdxs))
                 file.close()
 
-train_validate_test('heridal', 'chollet', 1, 70, 'rmsprop')
-train_validate_test('heridal', 'chollet', 32, 70, 'rmsprop')
-train_validate_test('heridal', 'chollet', 128, 70, 'rmsprop')
-train_validate_test('heridal', 'chollet', 256, 70, 'rmsprop')
 
-train_validate_test('heridal', 'chollet', 1, 70, 'SGD')
-train_validate_test('heridal', 'chollet', 32, 70, 'SGD')
-train_validate_test('heridal', 'chollet', 128, 70, 'SGD')
-train_validate_test('heridal', 'chollet', 256, 70, 'SGD')
 
-train_validate_test('heridal', 'vasic_papic', 1, 70, 'rmsprop')
-train_validate_test('heridal', 'vasic_papic', 32, 70, 'rmsprop')
-train_validate_test('heridal', 'vasic_papic', 128, 70, 'rmsprop')
-train_validate_test('heridal', 'vasic_papic', 256, 70, 'rmsprop')
-
-train_validate_test('heridal', 'vasic_papic', 1, 70, 'SGD')
-train_validate_test('heridal', 'vasic_papic', 32, 70, 'SGD')
-train_validate_test('heridal', 'vasic_papic', 128, 70, 'SGD')
+# train_validate_test('heridal', 'chollet', 256, 70, 'rmsprop')
+# train_validate_test('heridal', 'chollet', 256, 70, 'SGD')
+# train_validate_test('heridal', 'vasic_papic', 256, 70, 'rmsprop')
 train_validate_test('heridal', 'vasic_papic', 256, 70, 'SGD')
+
+train_validate_test('heridal', 'chollet', 128, 70, 'rmsprop')
+train_validate_test('heridal', 'chollet', 128, 70, 'SGD')
+train_validate_test('heridal', 'vasic_papic', 128, 70, 'rmsprop')
+train_validate_test('heridal', 'vasic_papic', 128, 70, 'SGD')
+
+train_validate_test('heridal', 'chollet', 32, 70, 'rmsprop')
+train_validate_test('heridal', 'chollet', 32, 70, 'SGD')
+train_validate_test('heridal', 'vasic_papic', 32, 70, 'rmsprop')
+train_validate_test('heridal', 'vasic_papic', 32, 70, 'SGD')
