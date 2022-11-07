@@ -48,8 +48,8 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
 
     ###################################################################################
 
-    for i in range(4):
-        pred_file = os.path.join(output, "test"+str((i+1)/2)+"_pred"+model_name+".txt")
+    for k in range(4):
+        pred_file = os.path.join(output, "test"+str((k+1)/2)+"_pred"+model_name+".txt")
         file = open(pred_file, 'r')
         file_string = file.read()
         file_list = file_string.replace('\n', '').replace(' ', '').replace('[', '--').replace(']', '--').split('--')
@@ -72,9 +72,9 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
             plt.plot(threshold_array[1:], f_beta[1:])
             plt.xlabel('Threshold')
             plt.ylabel('$F_\u03B2$')
-            plt.title("test"+str((i+1)/2))
+            plt.title("test"+str((k+1)/2))
             plt.legend(loc='lower left')
-            plt.savefig(os.path.join(output, "test"+str((i+1)/2)+'beta2_(' + str(beta2) + ')_' + model_name + '.png'))
+            plt.savefig(os.path.join(output, "test"+str((k+1)/2)+'beta2_(' + str(beta2) + ')_' + model_name + '.png'))
             plt.close
 
             f_beta_list.append(ymax)
@@ -83,22 +83,22 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
         plt.plot(beta2_array, np.asarray(f_beta_list))
         plt.xlabel('$\u03B2 ^{2}$')
         plt.ylabel('$F_\u03B2 MAX$')                
-        plt.savefig(os.path.join(output, "test"+str((i+1)/2)+'beta2_f_beta_' + model_name + '.png'))
+        plt.savefig(os.path.join(output, "test"+str((k+1)/2)+'beta2_f_beta_' + model_name + '.png'))
         plt.close
 
     return
 
 
-# fbeta('chollet', 32, 70, 'rmsprop')
-# fbeta('chollet', 128, 70, 'rmsprop')
-# fbeta('chollet', 256, 70, 'rmsprop')
+fbeta('chollet', 32, 70, 'rmsprop')
+fbeta('chollet', 128, 70, 'rmsprop')
+fbeta('chollet', 256, 70, 'rmsprop')
 
-# fbeta('chollet', 32, 70, 'SGD')
-# fbeta('chollet', 128, 70, 'SGD')
-# fbeta('chollet', 256, 70, 'SGD')
+fbeta('chollet', 32, 70, 'SGD')
+fbeta('chollet', 128, 70, 'SGD')
+fbeta('chollet', 256, 70, 'SGD')
 
-# fbeta('vasic_papic', 32, 70, 'rmsprop')
-# fbeta('vasic_papic', 128, 70, 'rmsprop')
+fbeta('vasic_papic', 32, 70, 'rmsprop')
+fbeta('vasic_papic', 128, 70, 'rmsprop')
 fbeta('vasic_papic', 256, 70, 'rmsprop')
 
 fbeta('vasic_papic', 32, 70, 'SGD')
