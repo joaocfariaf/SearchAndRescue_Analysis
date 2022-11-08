@@ -218,7 +218,7 @@ def train_validate_test(data_set, network_model, batch_size, n_epochs, optimizer
 
 # train_validate_test('heridal', 'chollet', 256, 70, 'rmsprop')
 # train_validate_test('heridal', 'chollet', 256, 70, 'SGD')
-train_validate_test('heridal', 'vasic_papic', 256, 70, 'rmsprop')
+# train_validate_test('heridal', 'vasic_papic', 256, 70, 'rmsprop')
 # train_validate_test('heridal', 'vasic_papic', 256, 70, 'SGD')
 
 # train_validate_test('heridal', 'chollet', 128, 70, 'rmsprop')
@@ -230,3 +230,8 @@ train_validate_test('heridal', 'vasic_papic', 256, 70, 'rmsprop')
 # train_validate_test('heridal', 'chollet', 32, 70, 'SGD')
 # train_validate_test('heridal', 'vasic_papic', 32, 70, 'rmsprop')
 # train_validate_test('heridal', 'vasic_papic', 32, 70, 'SGD')
+
+train_validate_test('heridal', 'chollet', 16, 70, 'rmsprop')
+train_validate_test('heridal', 'chollet', 16, 70, 'SGD')
+train_validate_test('heridal', 'vasic_papic', 16, 70, 'rmsprop')
+train_validate_test('heridal', 'vasic_papic', 16, 70, 'SGD')
