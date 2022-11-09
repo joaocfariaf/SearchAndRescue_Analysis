@@ -31,14 +31,16 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
     dummy = (beta2_array + 1)*(.5)/(.5*beta2_array + 1)
     dummy_area = (2*np.sum(dummy) - dummy[0] - dummy[199])/(2*199)
 
-    label = 'AUC = {:.3f}'
-    dummy_label = 'dummy_AUC = {:.3f}'
+    label = 'model; AUC = {:.3f}'
+    dummy_label = 'dummy; AUC = {:.3f}'
     plt.figure()
     plt.plot(1 / beta2_array, dummy, 'k--', label=dummy_label.format(dummy_area))
     plt.plot(1 / beta2_array, np.asarray(f_beta_list), label=label.format(area))
+    plt.xlim([0, 1])
+    plt.ylim([0, 1])
     plt.xlabel('$1/\u03B2 ^{2}$')
     plt.ylabel('$F_\u03B2$')
-    plt.legend(loc='lower right')                
+    plt.legend(loc='best')                
     plt.savefig(os.path.join(output, 'f_beta_recall_beta2_f_beta_' + model_name + '.png'))
     plt.close
 
@@ -69,14 +71,16 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
         dummy_area = (2*np.sum(dummy) - dummy[0] - dummy[199])/(2*199)
 
 
-        label = 'AUC = {:.3f}'
-        dummy_label = 'dummy_AUC = {:.3f}'
+        label = 'model; AUC = {:.3f}'
+        dummy_label = 'dummy; AUC = {:.3f}'
         plt.figure()
         plt.plot(1 / beta2_array, dummy, 'k--', label=dummy_label.format(dummy_area))
         plt.plot(1 / beta2_array, np.asarray(f_beta_list), label=label.format(area))
+        plt.xlim([0, 1])
+        plt.ylim([0, 1])
         plt.xlabel('$1/\u03B2 ^{2}$')
         plt.ylabel('$F_\u03B2$')
-        plt.legend(loc='lower right')               
+        plt.legend(loc='best')               
         plt.savefig(os.path.join(output, "f_beta_recall_test"+str(ratio)+'beta2_f_beta_' + model_name + '.png'))
         plt.close
 
