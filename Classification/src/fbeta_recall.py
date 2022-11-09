@@ -1,0 +1,103 @@
+import os
+import numpy as np
+import math
+from matplotlib import pyplot as plt
+
+
+def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', train_prop=6, val_prop=2, test_prop=2):
+    
+    output = os.path.join('..', 'outputs', data_set, 'split_'+str(train_prop)+'_'+str(val_prop)+'_'+str(test_prop))
+    model_name = network_model + '_' + 'b' +  str(batch_size)  + '_' + 'e' + str(n_epochs) + '_' + optimizer
+    output = os.path.join(output, model_name)
+
+    pred_file = os.path.join(output, "pred"+model_name+".txt")
+    file = open(pred_file, 'r')
+    file_string = file.read()
+    file_list = file_string.replace('\n', '').replace(' ', '').replace('[', '--').replace(']', '--').split('--')
+    precision_array = np.array([float(i) for i in file_list[2].split(',')])
+    recall_array = np.array([float(i) for i in file_list[4].split(',')])
+
+    precision = precision_array[precision_array.shape[0]//2]
+    recall = recall_array[recall_array.shape[0]//2]
+
+    f_beta_list =[]
+    beta2_array = 200 / np.arange(1, 201, 1)
+    for beta2 in beta2_array:    
+        f_beta = (beta2 + 1)*precision*recall/(beta2*precision + recall)
+        f_beta_list.append(f_beta)
+
+    area = (2*np.sum(f_beta_list) - f_beta_list[0] - f_beta_list[199])/(2*199) 
+
+    dummy = (beta2_array + 1)*(.5)/(.5*beta2_array + 1)
+    dummy_area = (2*np.sum(dummy) - dummy[0] - dummy[199])/(2*199)
+
+    label = 'AUC = {:.3f}'
+    dummy_label = 'dummy_AUC = {:.3f}'
+    plt.figure()
+    plt.plot(1 / beta2_array, dummy, 'k--', label=dummy_label.format(dummy_area))
+    plt.plot(1 / beta2_array, np.asarray(f_beta_list), label=label.format(area))
+    plt.xlabel('$1/\u03B2 ^{2}$')
+    plt.ylabel('$F_\u03B2$')
+    plt.legend(loc='lower right')                
+    plt.savefig(os.path.join(output, 'f_beta_recall_beta2_f_beta_' + model_name + '.png'))
+    plt.close
+
+    ###################################################################################
+
+    for k in range(4):
+        ratio = (k+1)/2
+        pred_file = os.path.join(output, "test"+str(ratio)+"_pred"+model_name+".txt")
+        file = open(pred_file, 'r')
+        file_string = file.read()
+        file_list = file_string.replace('\n', '').replace(' ', '').replace('[', '--').replace(']', '--').split('--')
+        precision_array = np.array([float(i) for i in file_list[2].split(',')])
+        recall_array = np.array([float(i) for i in file_list[4].split(',')])
+
+        precision = precision_array[precision_array.shape[0]//2]
+        recall = recall_array[recall_array.shape[0]//2]
+
+        f_beta_list =[]
+        beta2_array = 200 / np.arange(1, 201, 1)
+        for beta2 in beta2_array:    
+            f_beta = (beta2 + 1)*precision*recall/(beta2*precision + recall)
+            f_beta_list.append(f_beta)
+
+        area = (2*np.sum(f_beta_list) - f_beta_list[0] - f_beta_list[199])/(2*199) 
+
+        dummy_precision = 1 / (10**ratio + 1)
+        dummy = (beta2_array + 1)*(dummy_precision)/(dummy_precision*beta2_array + 1)
+        dummy_area = (2*np.sum(dummy) - dummy[0] - dummy[199])/(2*199)
+
+
+        label = 'AUC = {:.3f}'
+        dummy_label = 'dummy_AUC = {:.3f}'
+        plt.figure()
+        plt.plot(1 / beta2_array, dummy, 'k--', label=dummy_label.format(dummy_area))
+        plt.plot(1 / beta2_array, np.asarray(f_beta_list), label=label.format(area))
+        plt.xlabel('$1/\u03B2 ^{2}$')
+        plt.ylabel('$F_\u03B2$')
+        plt.legend(loc='lower right')               
+        plt.savefig(os.path.join(output, "f_beta_recall_test"+str(ratio)+'beta2_f_beta_' + model_name + '.png'))
+        plt.close
+
+    return
+
+# fbeta('chollet', 16, 70, 'rmsprop')
+# fbeta('chollet', 32, 70, 'rmsprop')
+# fbeta('chollet', 128, 70, 'rmsprop')
+fbeta('chollet', 256, 70, 'rmsprop')
+
+# fbeta('chollet', 16, 70, 'SGD')
+# fbeta('chollet', 32, 70, 'SGD')
+# fbeta('chollet', 128, 70, 'SGD')
+# fbeta('chollet', 256, 70, 'SGD')
+
+# fbeta('vasic_papic', 16, 70, 'rmsprop')
+# fbeta('vasic_papic', 32, 70, 'rmsprop')
+# fbeta('vasic_papic', 128, 70, 'rmsprop')
+fbeta('vasic_papic', 256, 70, 'rmsprop')
+
+# fbeta('vasic_papic', 16, 70, 'SGD')
+# fbeta('vasic_papic', 32, 70, 'SGD')
+# fbeta('vasic_papic', 128, 70, 'SGD')
+# fbeta('vasic_papic', 256, 70, 'SGD')

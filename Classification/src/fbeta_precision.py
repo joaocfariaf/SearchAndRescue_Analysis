@@ -26,24 +26,27 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
         f_beta = (beta2 + 1)*precision*recall/(beta2*precision + recall)
         f_beta_list.append(f_beta)
 
-    area = 0.0
-    for count in range(0, 199):
-       area = f_beta_list[count] + f_beta_list[count+1] 
-    area = area / (2)
+    area = (2*np.sum(f_beta_list) - f_beta_list[0] - f_beta_list[199])/(2*199) 
 
-    label = '2*AUC = {:.3f}'
+    dummy = (beta2_array + 1)*(.5)/(.5*beta2_array + 1)
+    dummy_area = (2*np.sum(dummy) - dummy[0] - dummy[199])/(2*199)
+
+    label = 'AUC = {:.3f}'
+    dummy_label = 'dummy_AUC = {:.3f}'
     plt.figure()
+    plt.plot(beta2_array, dummy, 'k--', label=dummy_label.format(dummy_area))    
     plt.plot(beta2_array, np.asarray(f_beta_list), label=label.format(area))
     plt.xlabel('$\u03B2 ^{2}$')
     plt.ylabel('$F_\u03B2$')
     plt.legend(loc='lower right')                
-    plt.savefig(os.path.join(output, 'f_beta_med_beta2_f_beta_' + model_name + '.png'))
+    plt.savefig(os.path.join(output, 'f_beta_precision_beta2_f_beta_' + model_name + '.png'))
     plt.close
 
     ###################################################################################
 
     for k in range(4):
-        pred_file = os.path.join(output, "test"+str((k+1)/2)+"_pred"+model_name+".txt")
+        ratio = (k+1)/2
+        pred_file = os.path.join(output, "test"+str(ratio)+"_pred"+model_name+".txt")
         file = open(pred_file, 'r')
         file_string = file.read()
         file_list = file_string.replace('\n', '').replace(' ', '').replace('[', '--').replace(']', '--').split('--')
@@ -59,26 +62,29 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
             f_beta = (beta2 + 1)*precision*recall/(beta2*precision + recall)
             f_beta_list.append(f_beta)
 
-        area = 0.0
-        for count in range(0, 199):
-           area = f_beta_list[count] + f_beta_list[count+1] 
-           area = area / (2)
+        area = (2*np.sum(f_beta_list) - f_beta_list[0] - f_beta_list[199])/(2*199) 
 
-        label = '2*AUC = {:.3f}'
+        dummy_precision = 1 / (10**ratio + 1)
+        dummy = (beta2_array + 1)*(dummy_precision)/(dummy_precision*beta2_array + 1)
+        dummy_area = (2*np.sum(dummy) - dummy[0] - dummy[199])/(2*199)
+
+        label = 'AUC = {:.3f}'
+        dummy_label = 'dummy_AUC = {:.3f}'
         plt.figure()
+        plt.plot(beta2_array, dummy, 'k--', label=dummy_label.format(dummy_area))
         plt.plot(beta2_array, np.asarray(f_beta_list), label=label.format(area))
         plt.xlabel('$\u03B2 ^{2}$')
         plt.ylabel('$F_\u03B2$')
         plt.legend(loc='lower right')               
-        plt.savefig(os.path.join(output, "f_beta_med_test"+str((k+1)/2)+'beta2_f_beta_' + model_name + '.png'))
+        plt.savefig(os.path.join(output, "f_beta_precision_test"+str(ratio)+'beta2_f_beta_' + model_name + '.png'))
         plt.close
 
     return
 
 # fbeta('chollet', 16, 70, 'rmsprop')
 # fbeta('chollet', 32, 70, 'rmsprop')
-fbeta('chollet', 128, 70, 'rmsprop')
-# fbeta('chollet', 256, 70, 'rmsprop')
+# fbeta('chollet', 128, 70, 'rmsprop')
+fbeta('chollet', 256, 70, 'rmsprop')
 
 # fbeta('chollet', 16, 70, 'SGD')
 # fbeta('chollet', 32, 70, 'SGD')
