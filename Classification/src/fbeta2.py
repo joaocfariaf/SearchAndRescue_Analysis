@@ -36,7 +36,7 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
     plt.plot(beta2_array, np.asarray(f_beta_list), label=label.format(area))
     plt.xlabel('$\u03B2 ^{2}$')
     plt.ylabel('$F_\u03B2$')
-    plt.legend(loc='lower left')                
+    plt.legend(loc='lower right')                
     plt.savefig(os.path.join(output, 'f_beta_med_beta2_f_beta_' + model_name + '.png'))
     plt.close
 
@@ -69,7 +69,7 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
         plt.plot(beta2_array, np.asarray(f_beta_list), label=label.format(area))
         plt.xlabel('$\u03B2 ^{2}$')
         plt.ylabel('$F_\u03B2$')
-        plt.legend(loc='lower left')               
+        plt.legend(loc='lower right')               
         plt.savefig(os.path.join(output, "f_beta_med_test"+str((k+1)/2)+'beta2_f_beta_' + model_name + '.png'))
         plt.close
 
