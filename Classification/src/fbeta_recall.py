@@ -74,8 +74,8 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
         label = 'model; AUC = {:.3f}'
         dummy_label = 'dummy; AUC = {:.3f}'
         plt.figure()
-        plt.rc('axes', titlesize=20)
-        plt.rc('legend', fontsize=20) 
+        plt.rc('axes', labelsize=18)
+        plt.rc('legend', fontsize=18) 
         plt.plot(1 / beta2_array, dummy, 'k--', label=dummy_label.format(dummy_area))
         plt.plot(1 / beta2_array, np.asarray(f_beta_list), label=label.format(area))
         plt.xlim([0, 1])
