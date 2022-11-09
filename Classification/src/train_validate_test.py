@@ -46,7 +46,6 @@ def train_validate_test(data_set, network_model, batch_size, n_epochs, optimizer
                 # the model so far outputs 3D feature maps (height, width, features)
                 Flatten(),  # this converts our 3D feature maps to 1D feature vectors
                 Dense(64, activation='relu'),
-                Dropout(0.5),
                 Dense(1, activation='sigmoid')
         ])
 
@@ -59,15 +58,12 @@ def train_validate_test(data_set, network_model, batch_size, n_epochs, optimizer
                 MaxPooling2D(pool_size=(3, 3), strides=3),
                 # Camada com 64 filtros, actv RELU
                 Conv2D(64, (3, 3), activation='relu'),
-                Activation('relu'),
                 # Camada com 64 filtros, actv RELU
                 Conv2D(64, (3, 3), activation='relu'),
 
                 # Fully Connected com 64 filtros, actv RELU
                 Flatten(),
                 Dense(64, activation='relu'),
-                # Output layer com Softmax
-                Dropout(0.5),
                 Dense(1, activation='sigmoid')
         ])
 
@@ -235,3 +231,8 @@ train_validate_test('heridal', 'chollet', 16, 70, 'rmsprop')
 train_validate_test('heridal', 'chollet', 16, 70, 'SGD')
 train_validate_test('heridal', 'vasic_papic', 16, 70, 'rmsprop')
 train_validate_test('heridal', 'vasic_papic', 16, 70, 'SGD')
+
+train_validate_test('heridal', 'chollet', 192, 70, 'rmsprop')
+train_validate_test('heridal', 'chollet', 192, 70, 'SGD')
+train_validate_test('heridal', 'vasic_papic', 192, 70, 'rmsprop')
+train_validate_test('heridal', 'vasic_papic', 192, 70, 'SGD')
