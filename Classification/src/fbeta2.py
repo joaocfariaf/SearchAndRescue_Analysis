@@ -29,9 +29,9 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
     area = 0.0
     for count in range(0, 199):
        area = f_beta_list[count] + f_beta_list[count+1] 
-    area = area / (400)
+    area = area / (2)
 
-    label = 'AUC = {:.3f}'
+    label = '2*AUC = {:.3f}'
     plt.figure()
     plt.plot(beta2_array, np.asarray(f_beta_list), label=label.format(area))
     plt.xlabel('$\u03B2 ^{2}$')
@@ -62,9 +62,9 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
         area = 0.0
         for count in range(0, 199):
            area = f_beta_list[count] + f_beta_list[count+1] 
-           area = area / (400)
+           area = area / (2)
 
-        label = 'AUC = {:.3f}'
+        label = '2*AUC = {:.3f}'
         plt.figure()
         plt.plot(beta2_array, np.asarray(f_beta_list), label=label.format(area))
         plt.xlabel('$\u03B2 ^{2}$')
