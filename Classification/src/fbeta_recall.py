@@ -74,6 +74,8 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
         label = 'model; AUC = {:.3f}'
         dummy_label = 'dummy; AUC = {:.3f}'
         plt.figure()
+        plt.rc('axes', titlesize=20)
+        plt.rc('legend', fontsize=20) 
         plt.plot(1 / beta2_array, dummy, 'k--', label=dummy_label.format(dummy_area))
         plt.plot(1 / beta2_array, np.asarray(f_beta_list), label=label.format(area))
         plt.xlim([0, 1])
@@ -81,7 +83,7 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
         plt.xlabel('$1/\u03B2 ^{2}$')
         plt.ylabel('$F_\u03B2$')
         plt.legend(loc='best')               
-        plt.savefig(os.path.join(output, "f_beta_recall_"+str(ratio)+ '_'+ model_name + '.svg'), format='svg', dpi=300)
+        plt.savefig(os.path.join(output, "f_beta_recall_"+str(ratio)+ '_'+ model_name + '.png'))
         plt.close
 
     return
