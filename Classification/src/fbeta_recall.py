@@ -81,7 +81,7 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
         plt.xlabel('$1/\u03B2 ^{2}$')
         plt.ylabel('$F_\u03B2$')
         plt.legend(loc='best')               
-        plt.savefig(os.path.join(output, "f_beta_recall_"+str(ratio)+ '_'+ model_name + '.png'), format='eps')
+        plt.savefig(os.path.join(output, "f_beta_recall_"+str(ratio)+ '_'+ model_name + '.svg'), format='svg', dpi=300)
         plt.close
 
     return
