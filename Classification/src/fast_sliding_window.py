@@ -23,19 +23,27 @@ def sliding_window(model, image, threshold = .5, width=81, height=81, stride_x=8
     
     for top in range(0, (total_height - height + stride_y), stride_y):
         bottom = top + height
+        
+        img = image.crop((0, top, total_width, bottom))
+        window = np.asarray([np.asarray(img)])/255
+
+        print(window.shape)
+
+        pred = model.predict(np.expand_dims(np.expand_dims(window, 2), 0))[0]
+
+        print(window.shape)
+ 
+        break
+
         for left in range(0, (total_width - width + stride_x), stride_x):
             right = left + width
 
             # Gets the window
             window = np.asarray([np.asarray(image.crop((left, top, right, bottom)))])/255
-            # imgm = image.copy()
-            # rect = ImageDraw.Draw(imgm)
-            # shape = [(left, top), (right, bottom)]
+            
 
             prediction = model.predict(window, verbose=0)
             if prediction >= threshold:
-                # create rectangle image
-                # rect.rectangle(shape, outline="green")
                 x = (left + width/2) / total_width
                 y = (top + height/2) / total_height
                 r_width = width / total_width
@@ -43,11 +51,8 @@ def sliding_window(model, image, threshold = .5, width=81, height=81, stride_x=8
                             
                 label_line = '0 ' + str(x) + ' ' + str(y) + ' ' + str(r_width) + ' ' + str(r_height)
                 label.append(label_line)
-            # else:
-                # create rectangle image
-                # rect.rectangle(shape, outline="red")
-            # imgm.save('imgs/' + str(left) + '_' + str(top) + '.jpg')
-
+            
+            
     return label
 
 
@@ -75,8 +80,8 @@ for model_name in names:
 
 
     files = os.listdir(dataset_dir)
-    images = fnmatch.filter(files, "*.JPG")
-    # images = fnmatch.filter(files, "test_BLI_0001.JPG")
+    # images = fnmatch.filter(files, "*.JPG")
+    images = fnmatch.filter(files, "test_BLI_0001.JPG")
     total_time = []
 
     # pool = mp.Pool(mp.cpu_count())

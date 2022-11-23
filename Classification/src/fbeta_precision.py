@@ -31,8 +31,8 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
     dummy = (beta2_array + 1)*(.5)/(.5*beta2_array + 1)
     dummy_area = (2*np.sum(dummy) - dummy[0] - dummy[199])/(2*199)
 
-    label = 'model; AUC = {:.3f}'
-    dummy_label = 'dummy; AUC = {:.3f}'
+    label = 'model; A_\u03B2 = {:.3f}'
+    dummy_label = 'dummy; A_\u03B2 = {:.3f}'
     plt.figure()
     plt.rc('axes', labelsize=12)
     plt.rc('legend', fontsize=15)
@@ -72,8 +72,8 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
         dummy = (beta2_array + 1)*(dummy_precision)/(dummy_precision*beta2_array + 1)
         dummy_area = (2*np.sum(dummy) - dummy[0] - dummy[199])/(2*199)
 
-        label = 'model; AUC = {:.3f}'
-        dummy_label = 'dummy; AUC = {:.3f}'
+        label = 'model; A_\u03B2 = {:.3f}'
+        dummy_label = 'dummy; A_\u03B2 = {:.3f}'
         plt.figure()
         plt.rc('axes', labelsize=12)
         plt.rc('legend', fontsize=15)
