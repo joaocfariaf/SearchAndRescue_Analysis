@@ -82,9 +82,13 @@ def fbeta(network_model, batch_size, n_epochs, optimizer, data_set='heridal', tr
         plt.plot(1 / beta2_array, np.asarray(f_beta_list), label=label.format(area))
         plt.xlim([0, 1])
         plt.ylim([0, 1])
+
+        plt.tick_params('y', right=True, left=False, labelright=True, labelleft=False)    
+        plt.gca().invert_xaxis()        
+
         plt.xlabel('$1/\u03B2 ^{2}$')
         plt.ylabel('$F_\u03B2$')
-        plt.legend(loc='best')               
+        plt.legend(loc='best')   
         plt.savefig(os.path.join(output, "f_beta_recall_"+str(ratio)+ '_'+ model_name + '.png'))
         plt.close
 

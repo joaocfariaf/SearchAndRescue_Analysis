@@ -1,3 +1,25 @@
+''' 
+
+.\split data_set_name train_fraction validation_fraction test_fraction
+
+This script is to copy the images that are in the subdirectories named 
+"positive" and "negative" of "../../general_patches/patches_" + data_set_name 
+and paste them to six diferent subdirectories of "../inputs/data_" + data_set_name: 
+"train/negative", "train/positive", "validation/negative", "validation/positive", 
+"test/negative", "test/positive". 
+
+The proportion of images destinated for testing, validating and training is determined
+by the given numbers: train_fraction validation_fraction test_fraction; which should
+sum 1.
+
+Futhermore, some aditional test folders are created named "test2.0", "test1.5", 
+"test1.0" and "test0.5". These four folders are created from the test files, the only 
+difference is that in these folders, the number of images in the "positive" folder 
+is reduced, so that the proportion between the number of images in "positive" is 
+equals to 10^(-gamma) times the number of images in "negative".
+
+'''
+
 import os
 import shutil
 import random
@@ -44,8 +66,6 @@ for i in range(3):
         shutil.copy(os.path.join(positive_patches, file), positive[i])
     for file in neg[i]:
         shutil.copy(os.path.join(negative_patches, file), negative[i])
-
-#######################################################################################################################################3
 
 test_folders = [os.path.join(data, "test0.5"), os.path.join(data, "test1.0"), os.path.join(data, "test1.5"), os.path.join(data, "test2.0")]
 positive_test = []

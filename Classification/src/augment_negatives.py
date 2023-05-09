@@ -17,7 +17,7 @@ def reduce_positives(proportion, network_model, batch_size, n_epochs, optimizer,
     
     
     # this is a generator that will read pictures found in
-    # subfolers of 'data/train', and indefinitely generate
+    # subfolders of 'data/train', and indefinitely generate
     # batches of augmented image data
     test_generator = test_datagen.flow_from_directory(
             test_dir,  # this is the target directory
@@ -46,11 +46,6 @@ def reduce_positives(proportion, network_model, batch_size, n_epochs, optimizer,
     tn = predIdxs[6]
     fpr = fp / (fp + tn)
     auc_roc = predIdxs[7]
-
-
-
-
-
 
 
     return
